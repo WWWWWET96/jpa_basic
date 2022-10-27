@@ -22,22 +22,16 @@ public class Main {
 
         try {
             //저장
-            Team team = new Team();
-            team.setName("teamA");
-            entityManager.persist(team);
-
             Member member = new Member();
             member.setUsername("memberA");
-            member.setTeam(team);
+            //member.changeTeam(team);
             entityManager.persist(member);
 
-            // entityManager.flush(); //쓰기지연 SQL저장소에 있는 쿼리 DB에 적용
-           // entityManager.clear(); //영속성 컨텍스트 비움. 1차 캐시도 사라짐
-            System.out.println("_______________________");
-            List<Member> members = team.getMembers();
-            for(Member m : members){
-                System.out.println("m = "+ m.getUsername());
-            }
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(member);
+            entityManager.persist(team);
+
             entityTransaction.commit();
 
         }catch (Exception e){

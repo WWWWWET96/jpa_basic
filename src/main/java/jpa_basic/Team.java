@@ -10,11 +10,19 @@ public class Team {
     @Column(name = "TEAM_ID")
     private Long id;
     private String name;
-    /**
-     * @OneToMany의 경우, mappedBy로 연관관계가 있는 상대 테이블 알려줘야함
-     * */
-    @OneToMany(mappedBy = "team")
+
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")
     private List<Member> members = new ArrayList<>();
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
+
     public Long getId() {
         return id;
     }
@@ -31,11 +39,4 @@ public class Team {
         this.name = name;
     }
 
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
-}
+ }
