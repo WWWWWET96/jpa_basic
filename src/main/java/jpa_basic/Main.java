@@ -21,17 +21,16 @@ public class Main {
         entityTransaction.begin();
 
         try {
-            //저장
-            Member member = new Member();
-            member.setUsername("memberA");
-            //member.changeTeam(team);
-            entityManager.persist(member);
+            Movie movie = new Movie();
+            movie.setDirector("aaa");
+            movie.setActor("bbb");
+            movie.setName("바람과 함께 사라지다.");
+            movie.setPrice(10000);
 
-            Team team = new Team();
-            team.setName("teamA");
-            team.getMembers().add(member);
-            entityManager.persist(team);
-
+            entityManager.persist(movie);
+            entityManager.flush();
+            entityManager.clear();
+            entityManager.find(Movie.class, movie.getId());
             entityTransaction.commit();
 
         }catch (Exception e){
